@@ -96,7 +96,7 @@ game.choctopus = function() {
   if(game.activeView) game.activeView.destroy();
   game.activeView = new ChoctopusView();
   game.refreshView();
-  window.setTimeout(game.menu, 2500);
+  window.setTimeout(game.menu, 1750);
 };
 
 game.menu = function() {
