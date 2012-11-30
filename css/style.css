@@ -36,6 +36,10 @@ box-shadow:         0px 3px 12px rgba(50, 50, 50, 0.75);
 	color: #817981;
 }
 
+a {
+	color: #817981;
+}
+
 .howto {
 	background-image: url('../img/how_to_background.png');
 }
@@ -55,6 +59,7 @@ dt, dd {
 #mute {
 	cursor: pointer;
 	font-weight: bold;
+	text-decoration: underline;
 }
 
 .songs {
@@ -67,8 +72,20 @@ dt, dd {
 	cursor: pointer;
 }
 
-.song-list-item, small, p, #mute, #song-credits li{
+.song-list-item, small, p, #mute, #song-credits li, .highscore{
 	font-family: helvetica, arial, sans-serif;
+}
+
+#scores li {
+	margin: 10px 0;
+}
+
+#song-credits li {
+	margin-bottom: 15px;
+}
+
+.credits .us {
+	margin-bottom: 15px;
 }
 
 .main-menu img {
