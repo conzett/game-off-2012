@@ -51,8 +51,7 @@ var Router = Backbone.Router.extend({
 });
 
 game.router = new Router;
-
-game.mute = false;
+game.muted = false;
 
 game.refreshView = function(view) {
   $('.container').html(game.activeView.el);
@@ -123,23 +122,37 @@ game.loadSong = function(song) {
 };
 
 game.playIfPaused = function(){
-  if(!game.mute && game.audio.music.paused){
+  if(!game.muted && game.audio.music.paused){
     game.audio.music.play();
   }
 };
 
-$('#mute').toggle(function() {
+game.mute = function(){
   _.each(game.audio, function(track){
     track.muted = true;
   });
-  game.mute = true;
-  $(this).html('Un-mute');
-}, function() {  
+  game.muted = true;
+  $("#mute").html('Un-mute');
+};
+
+game.unmute = function(){
   _.each(game.audio, function(track){
     track.muted = false;
   })
-  game.mute = false;
-  $(this).html('Mute');
+  game.muted = false;
+  $('#mute').html('Mute');
+};
+
+game.muteToggle = function(){
+  if(game.muted){
+    game.unmute();
+  }else{
+    game.mute();
+  }
+}
+
+$('#mute').click(function() {
+  game.muteToggle();
 });
 
 game.events.on("start", function() {
@@ -171,16 +184,16 @@ game.events.on("choctopus", function() {
 });
 
 game.events.on("playSound", function(sound) {
-  if(!game.mute){
+  if(!game.muted){
     game.audio[sound].play();
   }
 });
 
 function handleVisibilityChange() {
   if (document.webkitHidden) {
-    pauseSimulation();
+    game.mute();
   } else {
-    startSimulation();
+    game.unmute();
   }
 }
 
