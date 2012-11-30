@@ -98,7 +98,7 @@ dt, dd {
 	padding-top: 220px;
 }
 
-.game-text {
+.game-text, #new-highscore {
 	font-size: 34px;
 	color: #f29372;
 }
