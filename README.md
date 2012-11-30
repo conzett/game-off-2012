@@ -31,6 +31,6 @@ Creative Commons Attribution-NonCommercial
 
 ####Art Credits
 
-All sprite sheets and logos by [Stephanie Owens](http://steph-o.com)
+All sprite sheets and logos by [Stephanie Owens](http://www.behance.net/StephO)
 Creative Commons Attribution-NonCommercial
 
