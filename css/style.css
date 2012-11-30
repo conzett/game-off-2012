@@ -4,6 +4,10 @@
 	padding: 0;
 }
 
+* li {
+	list-style: none;
+}
+
 body {
 	background-color: #817981;
 	text-align: center;

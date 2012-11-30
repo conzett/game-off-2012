@@ -6,7 +6,8 @@ SongView = Backbone.View.extend({
 
   events: {
     'click #pause .menu' : 'backToMenu',
-    'click #pause .choose' : 'backToChoose'
+    'click .choose' : 'backToChoose',
+    'click .retry' : 'retry',
   },
 
   initialize: function(){
@@ -51,6 +52,10 @@ SongView = Backbone.View.extend({
     window.setTimeout(_.bind(function(){
       this.$el.find('#go').hide();
     }, this), 2000);
+  },
+
+  retry: function () {
+    game.loadSong(this.model);
   },
 
   backToChoose: function () {
