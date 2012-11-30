@@ -54,7 +54,7 @@ game.router = new Router;
 game.muted = false;
 
 game.refreshView = function(view) {
-  $('.container').html(game.activeView.el);
+  $('.container').html(game.activeView.$el);
 };
 
 game.chooseSong = function() {
@@ -113,11 +113,11 @@ game.menu = function() {
 
 game.loadSong = function(song) {
   game.audio.music.pause();
-  game.router.navigate("song/" + song.get('filename'));
   if(game.activeView) game.activeView.destroy();
   game.activeView = new SongView({
     model : song
   });
+  game.router.navigate("song/" + song.get('filename'));
   game.refreshView();
 };
 
