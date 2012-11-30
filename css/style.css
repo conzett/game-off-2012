@@ -109,7 +109,6 @@ dt, dd {
 }
 
 #score-text, #combo-text {
-	color: green;
 	position: absolute;
 	z-index: 100;
 	font-size: 30px;
@@ -117,14 +116,16 @@ dt, dd {
 
 #score-text, #combo-text {
 	color: #669f7d;
+	left: 460px;
+	font-size: 130%;
 }
 
 #score-text {
-	top: 50px;
+	top: 120px;
 }
 
 #combo-text {
-	top: 50px;
+	top: 150px;
 }
 
 #ready, #go, #pause, #game-over, #clear {}
@@ -134,6 +135,10 @@ dt, dd {
 	z-index: 100;
 	left: 0;
 	right: 0;
+}
+
+#go, #ready {
+	color: #669f7d;
 }
 
 #pause, #game-over, #ready, #go, #status, #clear {
