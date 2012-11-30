@@ -15,8 +15,10 @@ SongView = Backbone.View.extend({
     this.canvas.width  = 640;
     this.canvas.height = 480;
     this.audio = this.$el.find('audio')[0];
+    game.audio.current_track = this.audio;
     this.audio.setAttribute('src', 'audio/songs/' + this.model.get('filename') + '.mp3');
     this.audio.load();
+    if(game.mute){this.audio.muted = true}
     this.score = 0;
     this.combo = 0;
     this.gameOver = false;

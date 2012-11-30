@@ -1,10 +1,10 @@
 window.game = {};
 game.events = _.clone(Backbone.Events);
 game.audio = {
-  effects : {
-    click : $('audio.click')[0],
-    whip  : $('audio.whip')[0]
-  }
+  click : $('audio.click')[0],
+  whip  : $('audio.whip')[0],
+  music  : $('audio.menu-music')[0],
+  current_track : false
 };
 
 var Router = Backbone.Router.extend({
@@ -59,6 +59,7 @@ game.refreshView = function(view) {
 };
 
 game.chooseSong = function() {
+  game.playIfPaused();
   game.router.navigate("choose_song");
   if(game.activeView) game.activeView.destroy();
   game.activeView = new SongsView({
@@ -68,6 +69,7 @@ game.chooseSong = function() {
 };
 
 game.howTo = function() {
+  game.playIfPaused();
   game.router.navigate("howto");
   if(game.activeView) game.activeView.destroy();
   game.activeView = new HowtoView();
@@ -75,6 +77,7 @@ game.howTo = function() {
 };
 
 game.highScores = function() {
+  game.playIfPaused();
   game.router.navigate("highscores");
   if(game.activeView) game.activeView.destroy();
   game.activeView = new HighScoreView({
@@ -84,6 +87,7 @@ game.highScores = function() {
 };
 
 game.credits = function() {
+  game.playIfPaused();
   game.router.navigate("credits");
   if(game.activeView) game.activeView.destroy();
   game.activeView = new CreditsView({
@@ -100,6 +104,7 @@ game.choctopus = function() {
 };
 
 game.menu = function() {
+  game.playIfPaused();
   game.router.navigate("menu");
   if(game.activeView) game.activeView.destroy();
   game.activeView = new MenuView();
@@ -108,6 +113,7 @@ game.menu = function() {
 };
 
 game.loadSong = function(song) {
+  game.audio.music.pause();
   game.router.navigate("song/" + song.get('filename'));
   if(game.activeView) game.activeView.destroy();
   game.activeView = new SongView({
@@ -115,6 +121,26 @@ game.loadSong = function(song) {
   });
   game.refreshView();
 };
+
+game.playIfPaused = function(){
+  if(!game.mute && game.audio.music.paused){
+    game.audio.music.play();
+  }
+};
+
+$('#mute').toggle(function() {
+  _.each(game.audio, function(track){
+    track.muted = true;
+  });
+  game.mute = true;
+  $(this).html('Un-mute');
+}, function() {  
+  _.each(game.audio, function(track){
+    track.muted = false;
+  })
+  game.mute = false;
+  $(this).html('Mute');
+});
 
 game.events.on("start", function() {
   game.chooseSong();
@@ -146,8 +172,18 @@ game.events.on("choctopus", function() {
 
 game.events.on("playSound", function(sound) {
   if(!game.mute){
-    game.audio.effects[sound].play();
+    game.audio[sound].play();
   }
 });
+
+function handleVisibilityChange() {
+  if (document.webkitHidden) {
+    pauseSimulation();
+  } else {
+    startSimulation();
+  }
+}
+
+document.addEventListener("webkitvisibilitychange", handleVisibilityChange, false);
 
 Backbone.history.start();
